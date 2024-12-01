@@ -2,7 +2,7 @@
 
 Advent of Code solution attempts for 2024.
 
-> ![NOTE]
+> [!NOTE]
 > CoPilot seems very astute this year. On day01 it suggested the example's answer – `11` – after I pasted in the short example input and before I'd written a single line of functionality.
 
 ## Commands
