@@ -19,8 +19,8 @@ List of the Deno commands we'll use to run and test these scripts.
 
 ### Test
 
-- `deno test --allow-read`
+`deno test --allow-read`
 
 ### Test and watch
 
-- `deno test --allow-read --watch`
+`deno test --allow-read --watch`
