@@ -13,10 +13,14 @@ List of the Deno commands we'll use to run and test these scripts.
 
 `deno run --allow-read main.ts`
 
-### Watch
+### Run and watch
 
 `deno run --allow-read --watch main.ts`
 
 ### Test
 
-`deno test --allow-read `
+- `deno test --allow-read`
+
+### Test and watch
+
+- `deno test --allow-read --watch`
