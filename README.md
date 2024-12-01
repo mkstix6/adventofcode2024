@@ -1,2 +1,22 @@
 # adventofcode2024
-Advent of Code solution attempts for 2024
+
+Advent of Code solution attempts for 2024.
+
+> ![NOTE]
+> CoPilot seems very astute this year. On day01 it suggested the example's answer – `11` – after I pasted in the short example input and before I'd written a single line of functionality.
+
+## Commands
+
+List of the Deno commands we'll use to run and test these scripts.
+
+### Run
+
+`deno run --allow-read main.ts`
+
+### Watch
+
+`deno run --allow-read --watch main.ts`
+
+### Test
+
+`deno test --allow-read `
