@@ -1,6 +1,12 @@
 // deno get input contents from file and parse it
 const input = Deno.readTextFileSync("input.txt");
 
+/**
+ * A report is "safe" if the following conditions are met:
+ * - The levels are either all increasing or all decreasing.
+ * - Any two adjacent levels differ by at least one and at most three.
+ * How many reports are safe?
+ */
 export function day02part1(input: string): number {
   return 0;
 }
