@@ -6,6 +6,29 @@ const formatReports = (input: string) =>
     .split("\n")
     .map((line) => line.split(" ").map(Number));
 
+type Report = number[];
+
+const directionCheck = (report: Report): boolean => {
+  const direction = Math.sign(report[1] - report[0]);
+  const skipTwo = 2;
+  for (let index = skipTwo; index < report.length; index++) {
+    if (Math.sign(report[index] - report[index - 1]) !== direction) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const differenceCheck = (report: Report): boolean => {
+  const skipOne = 1;
+  for (let index = skipOne; index < report.length; index++) {
+    if (Math.abs(report[index] - report[index - 1]) > 3) {
+      return false;
+    }
+  }
+  return true;
+};
+
 /**
  * A report is "safe" if the following conditions are met:
  * - The levels are either all increasing or all decreasing.
@@ -13,19 +36,9 @@ const formatReports = (input: string) =>
  * How many reports are safe?
  */
 export function day02part1(input: string): number {
-  const directionCheck: (report: number[]) => boolean = (report) => {
-    const direction = Math.sign(report[1] - report[0]);
-    const skipTwo = 2;
-    for (let index = skipTwo; index < report.length; index++) {
-      if (Math.sign(report[index] - report[index - 1]) !== direction) {
-        return false;
-      }
-    }
-    return true;
-  };
-
-  const differenceCheck: (report: number[]) => boolean = (report: number[]) => {
-    for (let index = 1; index < report.length; index++) {
+  const differenceCheck = (report: Report): boolean => {
+    const skipOne = 1;
+    for (let index = skipOne; index < report.length; index++) {
       if (Math.abs(report[index] - report[index - 1]) > 3) {
         return false;
       }
@@ -33,16 +46,33 @@ export function day02part1(input: string): number {
     return true;
   };
 
-  const reports: number[][] = formatReports(input);
-  const safeReports: number[][] = reports
+  const reports: Report[] = formatReports(input);
+  const safeReports: Report[] = reports
     .filter(directionCheck)
     .filter(differenceCheck);
 
   return safeReports.length;
 }
 
+/**
+ * Same as above, but a Report can have one level removed to make it safe.
+ * How many reports are safe?
+ */
 export function day02part2(input: string): number {
-  return 0;
+  const reports: Report[] = formatReports(input);
+  const safeReports: Report[] = reports.filter((report: Report) => {
+    if (directionCheck(report) && differenceCheck(report)) {
+      return true;
+    }
+    for (let index = 0; index < report.length; index++) {
+      const newReport = [...report];
+      newReport.splice(index, 1);
+      if (directionCheck(newReport) && differenceCheck(newReport)) {
+        return true;
+      }
+    }
+  });
+  return safeReports.length;
 }
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts

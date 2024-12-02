@@ -14,6 +14,6 @@ Deno.test(function day02part1Test() {
 });
 
 Deno.test(function day02part2Test() {
-  const testPart2Expected = 0;
+  const testPart2Expected = 4;
   assertEquals(day02part2(testInput), testPart2Expected);
 });
