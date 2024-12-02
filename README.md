@@ -1,6 +1,6 @@
 # Advent of Code 2024
 
-Advent of Code solution attempts for 2024.
+My [Advent of Code 2024](https://adventofcode.com/2024) solutions and attempts using TypeScript and Deno.
 
 > [!NOTE]
 > CoPilot seems very astute this year. On day01 it suggested the example's answer – `11` – after I pasted in the short example input and before I'd written a single line of functionality.
