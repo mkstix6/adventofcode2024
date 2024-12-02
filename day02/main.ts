@@ -57,8 +57,7 @@ export function day02part2(input: string): number {
       return true;
     }
     for (let index = 0; index < report.length; index++) {
-      const newReport = [...report];
-      newReport.splice(index, 1);
+      const newReport = report.toSpliced(index, 1);
       if (isSafeReport(newReport)) {
         return true;
       }
