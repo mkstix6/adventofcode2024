@@ -1,6 +1,7 @@
 // deno get input contents from file and parse it
 const input = Deno.readTextFileSync("input.txt");
-const formatReports = (input: string) =>
+
+const formatReports = (input: string): Report[] =>
   input
     .trim()
     .split("\n")
@@ -10,8 +11,8 @@ type Report = number[];
 
 const directionCheck = (report: Report): boolean => {
   const direction = Math.sign(report[1] - report[0]);
-  const skipTwo = 2;
-  for (let index = skipTwo; index < report.length; index++) {
+  const startIndex = 2;
+  for (let index = startIndex; index < report.length; index++) {
     if (Math.sign(report[index] - report[index - 1]) !== direction) {
       return false;
     }
@@ -20,13 +21,17 @@ const directionCheck = (report: Report): boolean => {
 };
 
 const differenceCheck = (report: Report): boolean => {
-  const skipOne = 1;
-  for (let index = skipOne; index < report.length; index++) {
+  const startIndex = 1;
+  for (let index = startIndex; index < report.length; index++) {
     if (Math.abs(report[index] - report[index - 1]) > 3) {
       return false;
     }
   }
   return true;
+};
+
+const isSafeReport = (report: Report): boolean => {
+  return directionCheck(report) && differenceCheck(report);
 };
 
 /**
@@ -36,21 +41,8 @@ const differenceCheck = (report: Report): boolean => {
  * How many reports are safe?
  */
 export function day02part1(input: string): number {
-  const differenceCheck = (report: Report): boolean => {
-    const skipOne = 1;
-    for (let index = skipOne; index < report.length; index++) {
-      if (Math.abs(report[index] - report[index - 1]) > 3) {
-        return false;
-      }
-    }
-    return true;
-  };
-
   const reports: Report[] = formatReports(input);
-  const safeReports: Report[] = reports
-    .filter(directionCheck)
-    .filter(differenceCheck);
-
+  const safeReports: Report[] = reports.filter(isSafeReport);
   return safeReports.length;
 }
 
@@ -61,16 +53,17 @@ export function day02part1(input: string): number {
 export function day02part2(input: string): number {
   const reports: Report[] = formatReports(input);
   const safeReports: Report[] = reports.filter((report: Report) => {
-    if (directionCheck(report) && differenceCheck(report)) {
+    if (isSafeReport(report)) {
       return true;
     }
     for (let index = 0; index < report.length; index++) {
       const newReport = [...report];
       newReport.splice(index, 1);
-      if (directionCheck(newReport) && differenceCheck(newReport)) {
+      if (isSafeReport(newReport)) {
         return true;
       }
     }
+    return false;
   });
   return safeReports.length;
 }
