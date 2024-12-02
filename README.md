@@ -5,6 +5,10 @@ Advent of Code solution attempts for 2024.
 > [!NOTE]
 > CoPilot seems very astute this year. On day01 it suggested the example's answer – `11` – after I pasted in the short example input and before I'd written a single line of functionality.
 
+## Prerequisites
+
+Deno2 – _install latest with_: `deno upgrade`
+
 ## Commands
 
 List of the Deno commands we'll use to run and test these scripts.
