@@ -1,5 +1,10 @@
 // deno get input contents from file and parse it
 const input = Deno.readTextFileSync("input.txt");
+const formatReports = (input: string) =>
+  input
+    .trim()
+    .split("\n")
+    .map((line) => line.split(" ").map(Number));
 
 /**
  * A report is "safe" if the following conditions are met:
@@ -8,7 +13,32 @@ const input = Deno.readTextFileSync("input.txt");
  * How many reports are safe?
  */
 export function day02part1(input: string): number {
-  return 0;
+  const directionCheck: (report: number[]) => boolean = (report) => {
+    const direction = Math.sign(report[1] - report[0]);
+    const skipTwo = 2;
+    for (let index = skipTwo; index < report.length; index++) {
+      if (Math.sign(report[index] - report[index - 1]) !== direction) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const differenceCheck: (report: number[]) => boolean = (report: number[]) => {
+    for (let index = 1; index < report.length; index++) {
+      if (Math.abs(report[index] - report[index - 1]) > 3) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const reports: number[][] = formatReports(input);
+  const safeReports: number[][] = reports
+    .filter(directionCheck)
+    .filter(differenceCheck);
+
+  return safeReports.length;
 }
 
 export function day02part2(input: string): number {
