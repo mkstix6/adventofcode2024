@@ -2,7 +2,10 @@
 const input = Deno.readTextFileSync("input.txt");
 
 export function day03part1(input: string): number {
-  return 0;
+  const matcher = /mul\((\d+),(\d+)\)/g;
+  return [...input.matchAll(matcher)]
+    .map((match) => parseInt(match[1]) * parseInt(match[2]))
+    .reduce((acc, val) => acc + val, 0);
 }
 
 export function day03part2(input: string): number {
