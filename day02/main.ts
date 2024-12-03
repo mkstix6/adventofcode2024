@@ -69,6 +69,6 @@ export function day02part2(input: string): number {
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-  console.log("Answer for day 02 part 1", day02part1(input));
-  console.log("Answer for day 02 part 2", day02part2(input));
+  console.log("Answer for day02 part1", day02part1(input));
+  console.log("Answer for day02 part2", day02part2(input));
 }

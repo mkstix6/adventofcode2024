@@ -16,6 +16,6 @@ export function day03part2(input: string): number {
 }
 
 if (import.meta.main) {
-  console.log("Answer for day 03 part 1", day03part1(input));
-  console.log("Answer for day 03 part 2", day03part2(input));
+  console.log("Answer for day03 part1", day03part1(input));
+  console.log("Answer for day03 part2", day03part2(input));
 }
