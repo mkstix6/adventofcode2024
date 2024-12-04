@@ -18,15 +18,15 @@ MXMXAXMASX`;
 
 Deno.test(function day04part2Test() {
   const testInput = `.M.S......
-                    ..A..MSMS.
-                    .M.S.MAA..
-                    ..A.ASMSM.
-                    .M.S.M....
-                    ..........
-                    S.S.S.S.S.
-                    .A.A.A.A..
-                    M.M.M.M.M.
-                    ..........`;
+..A..MSMS.
+.M.S.MAA..
+..A.ASMSM.
+.M.S.M....
+..........
+S.S.S.S.S.
+.A.A.A.A..
+M.M.M.M.M.
+..........`;
   const testPart2Expected = 9;
   assertEquals(day04part2(testInput), testPart2Expected);
 });

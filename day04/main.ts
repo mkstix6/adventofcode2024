@@ -46,7 +46,52 @@ export function day04part1(input: string): number {
 }
 
 export function day04part2(input: string): number {
-  return 0;
+  const target: string = "MAS";
+  const targetChars = target.split("");
+  const matrix = input.split("\n").map((line) => [...line]);
+  const stepCoordinates: Coordinates[] = [
+    [-1, -1], // top left
+    [-1, 1], // top right
+    [1, -1], // bottom left
+    [1, 1], // bottom right
+  ];
+
+  const crossCounts = new Map();
+  for (let i = 0; i < matrix.length; i++) {
+    const row = matrix[i];
+    for (let j = 0; j < row.length; j++) {
+      const startChar = matrix[i][j];
+      if (startChar !== targetChars[0]) {
+        continue;
+      }
+      // check in each of the 4 diagonal directions
+      stepCoordinates.forEach(([x, y]: Coordinates, index: number): void => {
+        for (let k = 0; k < targetChars.length; k++) {
+          const nextChar = matrix[i + (k + 1) * x]?.[j + (k + 1) * y];
+          if (!nextChar || nextChar !== targetChars[k + 1]) {
+            break;
+          }
+          if (k === targetChars.length - 2) {
+            // Save the center coordinate of the word and count how many matches with the same center coordinate there are
+            const [Ax, Ay] = [i + x, j + y];
+            const mapKey: string = `${Ax},${Ay}`;
+            if (!crossCounts.has(mapKey)) {
+              crossCounts.set(mapKey, 1);
+            } else {
+              crossCounts.set(mapKey, crossCounts.get(mapKey) + 1);
+            }
+          }
+        }
+      });
+    }
+  }
+  // Eliminate solo-matches that are not crosses
+  for (const [key, value] of crossCounts.entries()) {
+    if (value === 1) {
+      crossCounts.delete(key);
+    }
+  }
+  return [...crossCounts].length;
 }
 
 if (import.meta.main) {
