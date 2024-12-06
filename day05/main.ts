@@ -24,7 +24,7 @@ export function parseInput(input: string): {
   };
 }
 
-export const getPageListChecker = (rules: RulesList) => {
+export const getUpdateChecker = (rules: RulesList) => {
   const ruleSet = new Set(rules.map((rule) => rule.join(",")));
   return (pageList: Update) => {
     for (let i = 0; i < pageList.length - 1; i++) {
@@ -41,21 +41,44 @@ export const getPageListChecker = (rules: RulesList) => {
 
 export function day05part1(input: string): number {
   const { rules, updates } = parseInput(input);
-  // Set up validator
-  const pageListChecker = getPageListChecker(rules);
-  //   Remove problem Updates from collection
-  const validUpdates = updates.filter((pageList) => pageListChecker(pageList));
-  // Get middle pages
+  // Remove problem Updates from collection
+  const updateChecker = getUpdateChecker(rules);
+  const validUpdates = updates.filter((pageList) => updateChecker(pageList));
+  // Extract final answer
   const validMiddlePageList = validUpdates.map(
     (pageList) => pageList[Math.floor(pageList.length / 2)]
   );
-  // Sum middle pages
   const total = validMiddlePageList.reduce((acc, page) => acc + page, 0);
   return total;
 }
 
+const getUpdateFixer = (rules: RulesList) => {
+  const ruleSet = new Set(rules.map((rule) => rule.join(",")));
+  return (pageList: Update) => {
+    return pageList.toSorted((a, b) => {
+      const rule = [a, b].join(",");
+      if (!ruleSet.has(rule)) {
+        return -1;
+      }
+      return 1;
+    });
+  };
+};
+
 export function day05part2(input: string): number {
-  return 0;
+  const { rules, updates } = parseInput(input);
+  // Remove valid Updates from collection - keep broken Updates
+  const updateChecker = getUpdateChecker(rules);
+  const invalidUpdates = updates.filter((pageList) => !updateChecker(pageList));
+  // Fix updates
+  const updateFixer = getUpdateFixer(rules);
+  const fixedUpdates = invalidUpdates.map((update) => updateFixer(update));
+  // Extract final answer
+  const fixedMiddlePageList = fixedUpdates.map(
+    (pageList) => pageList[Math.floor(pageList.length / 2)]
+  );
+  const total = fixedMiddlePageList.reduce((acc, page) => acc + page, 0);
+  return total;
 }
 
 if (import.meta.main) {

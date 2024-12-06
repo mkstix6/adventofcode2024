@@ -73,6 +73,6 @@ Deno.test(function day05part1Test() {
 });
 
 Deno.test(function day05part2Test() {
-  const testPart2Expected = 0;
+  const testPart2Expected = 123;
   assertEquals(day05part2(testInput), testPart2Expected);
 });
