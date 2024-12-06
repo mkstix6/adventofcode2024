@@ -35,6 +35,15 @@ export function parseInput(input: string): {
 }
 
 /**
+ * Get the middle element of an array.
+ * @param array - The array to get the middle element from.
+ * @returns The middle element of the array.
+ */
+const pickMiddleElement = <T>(array: T[]): T => {
+  return array[Math.floor(array.length / 2)];
+};
+
+/**
  * Creates a function to check if a list of pages follows the given rules.
  * @param rules - The list of rules.
  * @returns A function that checks if a page list is valid.
@@ -66,10 +75,8 @@ export function day05part1(input: string): number {
   const validUpdates = updates.filter(updateChecker);
 
   // Extract middle pages and calculate total
-  const validMiddlePages = validUpdates.map(
-    (pageList) => pageList[Math.floor(pageList.length / 2)]
-  );
-  return validMiddlePages.reduce((acc, page) => acc + page, 0);
+  const middlePages = validUpdates.map(pickMiddleElement);
+  return middlePages.reduce((acc, page) => acc + page, 0);
 }
 
 /**
@@ -103,10 +110,8 @@ export function day05part2(input: string): number {
   // Fix updates and calculate total
   const updateFixer = getUpdateFixer(rules);
   const fixedUpdates = invalidUpdates.map(updateFixer);
-  const fixedMiddlePages = fixedUpdates.map(
-    (pageList) => pageList[Math.floor(pageList.length / 2)]
-  );
-  return fixedMiddlePages.reduce((acc, page) => acc + page, 0);
+  const middlePages = fixedUpdates.map(pickMiddleElement);
+  return middlePages.reduce((acc, page) => acc + page, 0);
 }
 
 if (import.meta.main) {
